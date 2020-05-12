@@ -1,0 +1,4 @@
+OBJECT_SHARED Models/Airport/ndb.ac 24.152222 35.520833 160.56 180
+OBJECT_SHARED Models/Airport/tacan.xml 24.112392 35.54428 118.58 180
+OBJECT_SHARED Models/Communications/tower-unstayed-200m-striped-unlit.xml 24.173291 35.549902 501.33 0
+OBJECT_SHARED Models/Communications/vordme_4.xml 24.174407 35.522016 152.26 180

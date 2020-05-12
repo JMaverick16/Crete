@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<PropertyList>
+
+ <path>LGIR_Biglight.ac</path>
+
+ <animation>
+  <name>Pln</name>
+    <object-name>Plane</object-name>
+    <object-name>Cube</object-name>
+    <object-name>Cube.001</object-name>
+    <object-name>Cube.002</object-name>
+    <object-name>Cube.003</object-name>
+    <object-name>Cube.004</object-name>
+    <object-name>Cube.005</object-name>
+    <object-name>Cube.006</object-name>
+ </animation>
+
+ <animation>
+  <name>Cn</name>
+    <enable-hot type="bool">false</enable-hot>
+    <object-name>Cone</object-name>
+    <object-name>Cone.001</object-name>
+    <object-name>Cone.002</object-name>
+    <object-name>Cone.003</object-name>
+    <object-name>Cone.004</object-name>
+    <object-name>Cone.005</object-name>
+    <object-name>Cone.006</object-name>
+ </animation>
+
+ <animation>
+  <name>Gls</name>
+    <object-name>Glass</object-name>
+    <object-name>Glass.001</object-name>
+    <object-name>Glass.002</object-name>
+    <object-name>Glass.003</object-name>
+    <object-name>Glass.004</object-name>
+    <object-name>Glass.005</object-name>
+    <object-name>Glass.006</object-name>
+ </animation>
+
+ <animation>
+  <name>Shl</name>
+    <object-name>Shell</object-name>
+    <object-name>Shell.001</object-name>
+    <object-name>Shell.002</object-name>
+    <object-name>Shell.003</object-name>
+    <object-name>Shell.004</object-name>
+    <object-name>Shell.005</object-name>
+    <object-name>Shell.006</object-name>
+ </animation>
+
+ <animation>
+  <object-name>BigLight</object-name>
+  <type>textranslate</type>
+    <property>/sim/time/sun-angle-rad</property>
+    <step>1.57</step>
+    <factor>0.063</factor>
+ <axis>
+   <x>1</x>
+   <y>0</y>
+  </axis>
+ </animation>
+
+ <animation>
+  <object-name>Pln</object-name>
+  <object-name>Gls</object-name>
+  <object-name>Shl</object-name>
+  <type>textranslate</type>
+    <property>/sim/time/sun-angle-rad</property>
+    <step>1.57</step>
+    <factor>0.082</factor>
+ <axis>
+   <x>1</x>
+   <y>0</y>
+  </axis>
+ </animation>
+
+  <animation>
+    <type>material</type> 
+    <object-name>Gls</object-name> 
+    <condition>		
+     <greater-than-equals>		
+      <property>/sim/time/sun-angle-rad</property>
+      <value>1.57</value>
+     </greater-than-equals>
+    </condition>
+    <emission>	
+     <red>1.0</red>	
+     <green>1.0</green>	
+     <blue>1.0</blue>
+    </emission>
+  </animation>
+
+  <animation>
+    <type>material</type> 
+    <object-name>Cn</object-name> 
+    <condition>		
+     <greater-than-equals>		
+      <property>/sim/time/sun-angle-rad</property>
+      <value>1.57</value>
+     </greater-than-equals>
+    </condition>
+    <emission>	
+     <red>0.12</red>	
+     <green>0.12</green>	
+     <blue>0.12</blue>
+    </emission>
+  </animation>
+
+ <animation>
+    <type>select</type>
+    <object-name>Cn</object-name>
+    <condition>		
+      <greater-than>		
+       <property>/sim/time/sun-angle-rad</property>
+       <value>1.57</value>
+      </greater-than>
+   </condition>
+ </animation>
+
+</PropertyList>

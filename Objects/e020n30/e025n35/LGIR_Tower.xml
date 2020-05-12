@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<PropertyList>
+
+ <path>LGIR_Tower.ac</path>
+
+ <animation>
+  <name>Shifting</name>
+<object-name>Column</object-name>
+<object-name>Column_0</object-name>
+<object-name>Column_1</object-name>
+<object-name>Antenna</object-name>
+<object-name>Antenna.001</object-name>
+<object-name>Antenna.002</object-name>
+<object-name>Antenna.003</object-name>
+<object-name>BB1</object-name>
+<object-name>BB2</object-name>
+<object-name>BB3</object-name>
+<object-name>BB4</object-name>
+<object-name>Fence</object-name>
+<object-name>Fence2</object-name>
+<object-name>Fence3</object-name>
+<object-name>LampStud</object-name>
+<object-name>Plane</object-name>
+<object-name>Tower</object-name>
+<object-name>Window</object-name>
+ </animation>
+
+ <animation>
+  <object-name>Shifting</object-name>
+  <type>textranslate</type>
+    <property>/sim/time/sun-angle-rad</property>
+    <step>1.57</step>
+    <factor>0.318471338</factor>
+  <axis>
+   <x>0</x>
+   <y>-1</y>
+  </axis>
+ </animation>
+
+  <animation>
+    <type>material</type> 
+    <object-name>Sphere</object-name> 
+    <condition>		
+     <greater-than-equals>		
+      <property>/sim/time/sun-angle-rad</property>
+      <value>1.57</value>
+     </greater-than-equals>
+    </condition>
+    <emission>	
+     <red>0.5</red>	
+     <green>0.</green>	
+     <blue>0.</blue>
+    </emission>
+  </animation>
+
+  <animation>
+   <type>material</type> 
+   <object-name>Flash</object-name> 
+   <condition>		
+      <greater-than-equals>		
+         <property>/sim/time/sun-angle-rad</property>
+         <value>1.57</value>
+      </greater-than-equals>
+   </condition>
+   <emission>	
+      <red>0.9</red>	
+      <green>0.</green>	
+      <blue>0.</blue>
+   </emission>
+  </animation>
+
+ <animation>
+    <type>select</type>
+    <object-name>Flash</object-name>
+    <condition>		
+      <greater-than>		
+       <property>/sim/temp/LGIR_Flash</property>
+       <value>0</value>
+      </greater-than>
+   </condition>
+ </animation>
+
+ <animation>
+  <type>billboard</type>
+  <object-name>Flash</object-name>
+  <spherical type="bool">true</spherical>
+ <condition>		
+  <greater-than>		
+   <property>/sim/temp/LGIR_Flash</property>
+   <value>0</value>
+  </greater-than>
+ </condition>
+ </animation>
+
+<!--
+ <animation>
+  <type>timed</type>
+  <object-name>Flash</object-name>
+  <object-name>Sphere</object-name>
+  <use-personality type="bool">true</use-personality>
+  <branch-duration-sec>0.1</branch-duration-sec>
+  <branch-duration-sec>0.9</branch-duration-sec>
+ </animation>
+-->
+
+<nasal>
+  <load>
+   <![CDATA[
+      
+    var t = getprop("/sim/temp/LGIR_Flash");
+    # No double timers after reload 
+    if( t == nil ){
+      # LGIR_Flash does not exist, so make one
+      setprop("/sim/temp/LGIR_Flash",0);
+      var FlashTimer = maketimer(120, func {
+
+        if(getprop("/sim/time/sun-angle-rad")>1.57){
+
+           if(getprop("/sim/temp/LGIR_Flash") == 1){
+              setprop("/sim/temp/LGIR_Flash",0);
+              FlashTimer.restart(0.8);
+           }else{
+              setprop("/sim/temp/LGIR_Flash",1);
+              FlashTimer.restart(0.2);
+           }
+
+        }else{
+           setprop("/sim/temp/LGIR_Flash",0);
+           # Test every 2 mins for sun-angle
+           FlashTimer.restart(120);
+        }
+
+      });
+      FlashTimer.restart(1);
+    };
+
+   ]]>
+  </load>
+</nasal>
+
+</PropertyList>
+
